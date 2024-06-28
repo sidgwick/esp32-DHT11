@@ -117,8 +117,8 @@ struct dht11_reading DHT11_read() {
 
     if(_checkCRC(data) != DHT11_CRC_ERROR) {
         last_read.status = DHT11_OK;
-        last_read.temperature = data[2];
-        last_read.humidity = data[0];
+        last_read.temperature = data[2] + data[3] / 100.0;
+        last_read.humidity = data[0] + data[1] / 100.0;
         return last_read;
     } else {
         return last_read = _crcError();
